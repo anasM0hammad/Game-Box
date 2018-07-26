@@ -34,6 +34,16 @@
 
         }
 
+        gameOverMsg = function(){
+        	ctx.save() ;
+
+        	ctx.fillStyle = "red" ;
+        	ctx.font = "30px calibri";
+        	ctx.fillText("GAME OVER..!", 70 , 150);
+
+        	ctx.restore();
+        }
+
 
 
         drawFood = function(f , i){
@@ -48,18 +58,18 @@
 
         document.onkeydown = function(event){
 
-            if(event.keyCode == 37){
+            if(event.keyCode == 37 && dir !=2){
                 dir = 0 ;       //left
             }
 
-            else if(event.keyCode == 38){
+            else if(event.keyCode == 38 && dir!= 3){
                 dir = 1  ;             //up
             }
 
-            else if(event.keyCode == 39)
+            else if(event.keyCode == 39 && dir != 0)
                 dir = 2 ;              // right
 
-            else if (event.keyCode == 40) 
+            else if (event.keyCode == 40 && dir != 1) 
                 dir = 3     ;          //down
         }
 
@@ -211,6 +221,7 @@
 
             	if(collisionSnake(snakeList[0], snakeList[i])){         // IS GAME OVER CONDITION
             		clearInterval(intervalVar);
+            		gameOverMsg();
             	}
             }
              ctx.font = "14px comic sans MS";
