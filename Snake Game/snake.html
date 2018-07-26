@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
   
-    <link rel="icon" type="img/gif" href="logo.png">
+    <link rel="icon" type="img/gif" href="logo1.png">
 
    
 
@@ -28,8 +28,8 @@
         text-align: center;
         color: white;
         text-decoration: underline;
-        margin-bottom: 50px;
-        margin-top: 30px;
+        margin-bottom: 30px;
+        margin-top: 20px;
         font-style: italic;
       }
 
@@ -39,6 +39,14 @@
         font-style: italic;
       }
 
+      .btn{
+        border-top-right-radius: 20px; 
+        border-top-left-radius:20px ;
+        border-bottom-right-radius:20px ;
+        border-bottom-left-radius: 20px; 
+        margin-top: 15px;
+      }
+
     </style>
 
   </head>
@@ -46,49 +54,69 @@
   <body>
 
  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <img src="logo.png" width="30" height="30" class="d-inline-block align-top" style="margin-right: 10px;">
-   <a class="navbar-brand" href="#"> GAME BOX</a>
+    <a class="navbar-brand" href="#"><img src="logo1.png" width="30" height="30" class="d-inline-block align-top" style="margin-right: 10px; margin-left: 10px;" >
+    GAME BOX</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="  false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto ">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <li class="nav-item ">
+        <a class="nav-link" href="#">Home </a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">About</a>
       </li>
   </div>
 </nav>
-      
-      <div class="row">
-        <div class="col-4">
-          <img src="snake.png" style="height: 150px; width: 150px;" class="mx-auto d-block" >
+       <div class="container">
+         <div class="row">
+        <div class="col-4 ">
+          <img src="snake.png" style="height: 130px; width: 130px;" class="mx-auto d-block" >
         </div>
           
-         <div class="col-4">
-            <h1> WELCOME</h1>
+         <div class="col-4 d-none d-sm-block">
+            <h1 class="d-none d-sm-block"> WELCOME</h1>
          </div>
 
-         <div class="col-4">
+         <div class="col-4 d-none d-sm-block">
              
-         </div> 
-
-      </div>
+         </div>
 
         
+      </div>
+      </div>
+        
 
-       <canvas height="300" width="350" style="border: 1px solid blue ;" id = "ctx" class="rounded mx-auto d-block"></canvas>
+      <div class="container">
+        <div class="row ">
+           <div class="col-4 d-none d-sm-block">
+               
+           </div>
+           <div class="col-4">
+             <canvas height="300" width="350" style="border: 1px solid blue ;" id = "ctx" class="rounded mx-auto d-block"></canvas>
+           </div>
+           <div class="col-4 d-none d-sm-block">
+               
+           </div>
+        </div>
+       </div>
 
-       <h3 id="Score">Score : </h3>
+
+       <h3><button id= "restart" class="btn btn-danger">Restart</button></h3>
+
 
  <script type="text/javascript" src="myjavascript.js"></script>
 
     <script type="text/javascript">
         
          var ctx = document.getElementById("ctx").getContext("2d");
+         document.getElementById("restart").onclick = function(){
+          document.location.reload(true) ;
+      }
+
+
 
     </script>
 

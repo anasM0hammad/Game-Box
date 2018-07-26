@@ -1,8 +1,9 @@
 
 
        var dir = 99 ;
-       var snakeList , foodList , eaten ,intervalVar , score;
-       
+       var snakeList , foodList , eaten, intervalVar , score , running = false;
+
+
 
        var snakeBody = {                    // Defining the snake body
 
@@ -173,12 +174,19 @@
          collision = function(sl, fl){
                
                if(sl[0].x <= fl[0].x + 15 && fl[0].x <= sl[0].x + 15 && sl[0].y <= fl[0].y + 15 && fl[0].y <= sl[0].y + 15 ){
+               	 score++ ;
                  return true ;
                }
 
                else{
                 return false ;
                }
+         }
+
+         collisionSnake = function(sl1 , sl2){
+         	if(Math.abs(sl1.x - sl2.x)<=5 && Math.abs(sl1.y - sl2.y)<=5){
+         		return true;
+         	}
          }
          
 
@@ -197,8 +205,18 @@
                 foodList = [] ;
                 eaten = true ;
                 incSnakeBody() ;
-                score++ ;
             }
+
+            for(var i= 1 ; i<snakeList.length ; i++){
+
+            	if(collisionSnake(snakeList[0], snakeList[i])){         // IS GAME OVER CONDITION
+            		clearInterval(intervalVar);
+            	}
+            }
+             ctx.font = "14px comic sans MS";
+             ctx.fillStyle = "blue" ;
+             ctx.fillText("score : "+score, 280 , 20);
+            
         }
 
         checkBoundary = function(){
@@ -231,9 +249,10 @@
           ];
 
           foodList = [] ;
-
+        dir = 99 ;
          score = 0 ;
          eaten = true ;
+         running = true ;
          intervalVar =  setInterval(updateSnakePosition,50) ;
      }
 
