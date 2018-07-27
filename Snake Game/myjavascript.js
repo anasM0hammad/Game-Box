@@ -266,7 +266,7 @@
 
              ctx.font = "14px comic sans MS";
              ctx.fillStyle = "blue" ;
-             ctx.fillText("score : "+score, 280 , 25);
+             ctx.fillText("score : "+score, 275 , 27);
             
         }
 
@@ -328,31 +328,31 @@
        }
         
        
-         if(start == 0){
+    
           level1.onclick = function(){
 
+            if(start == 0){
              level1.style.backgroundColor = "#C82333" ;
              level2.style.backgroundColor = "#0069D9" ;
              level2.innerHTML = "OFF" ;
              level1.innerHTML = "ON" ;
              l1 =true ;
              l2 = false ;
-             start = 1 ;
-                console.log(start);
+              }
            }
          
          
          
             level2.onclick = function(){
           
-           
+             if(start == 0){
              level2.style.backgroundColor = "#C82333" ;
              level1.style.backgroundColor = "#0069D9" ;
              level1.innerHTML = "OFF" ;
              level2.innerHTML = "ON" ;
              l1= false;
              l2 =true ;
-             start = 1;
+            
              }
             } 
            
@@ -379,12 +379,18 @@
          speed = 0 ;
          counter = 0 ;
          intervalVar =  setInterval(updateSnakePosition, 40) ;
-           console.log(start);
+           
      }
 
+
+       document.getElementById("restart").onclick = function(){
+       	  document.location.reload(true);
+       	
+       }
+      
        if(start == 0){
        	startMsg();
-       }
+      }
 
  
      
