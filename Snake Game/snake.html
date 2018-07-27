@@ -39,12 +39,15 @@
         font-style: italic;
       }
 
-      .btn{
+
+
+      .button{
         border-top-right-radius: 20px; 
         border-top-left-radius:20px ;
         border-bottom-right-radius:20px ;
         border-bottom-left-radius: 20px; 
         margin-top: 15px;
+        width: 100px;
       }
 
     </style>
@@ -81,7 +84,33 @@
          </div>
 
          <div class="col-4 d-none d-sm-block">
-             
+             <button class="btn btn-danger" data-toggle="modal"  data-target="#exampleModal" style="margin-top: 30px; float: right; ">Rules</button>
+
+           <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                 <h3 style="color: black;"> RULES</h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+             </div>
+              <div class="modal-body">
+                  
+                  <br>
+                  <h5>1. You have to eat food as many as you can to increase your score</h5>
+                  <h5>2. In Case of No boundary snake can move anywhere but crashes when hit itself</h5>
+                  <h5>3. In case of Boundary if snake hits the boundary and itself it crashes</h5>
+                  <h5>4. whenever snake crashes game is Over</h5>
+                  <br>
+              </div>
+     
+            </div>
+          </div>
+       </div>
+
+
          </div>
 
         
@@ -91,35 +120,64 @@
 
       <div class="container">
         <div class="row ">
-           <div class="col-4 d-none d-sm-block">
-               
-           </div>
-           <div class="col-4">
+           <div class="col-3 ">
+              
+            <h5 style="margin-top: 70px;"><button type="button" class="btn btn-primary" style="background-color: #C82333;" id= "level1">ON</button> No Boundary</h5>
+            <h5><button type="button" class="btn btn-primary" id= "level2">OFF</button> Boundary</h5>
+
+            </div>
+
+           <div class="col-6">
              <canvas height="300" width="350" style="border: 1px solid blue ;" id = "ctx" class="rounded mx-auto d-block"></canvas>
            </div>
-           <div class="col-4 d-none d-sm-block">
+           <div class="col-3 ">
                
            </div>
         </div>
        </div>
 
 
-       <h3><button id= "restart" class="btn btn-danger">Restart</button></h3>
+       <h3><button id= "restart" class="btn btn-danger button">Restart</button></h3>
 
 
- <script type="text/javascript" src="myjavascript.js"></script>
 
+   <script type="text/javascript" src="myjavascript.js"></script>
     <script type="text/javascript">
         
          var ctx = document.getElementById("ctx").getContext("2d");
          document.getElementById("restart").onclick = function(){
           document.location.reload(true) ;
-      }
+       }
+
+          var level1 = document.getElementById("level1") ;
+          var level2 = document.getElementById("level2") ;
+         var l1 = true;
+          var l2 = false ;
+
+          level1.onclick = function(){
+             level1.style.backgroundColor = "#C82333" ;
+             level2.style.backgroundColor = "#0069D9" ;
+             level2.innerHTML = "OFF" ;
+             level1.innerHTML = "ON" ;
+             l1 =true ;
+             l2 = false ;
+          }
+
+            level2.onclick = function(){
+             level2.style.backgroundColor = "#C82333" ;
+             level1.style.backgroundColor = "#0069D9" ;
+             level1.innerHTML = "OFF" ;
+             level2.innerHTML = "ON" ;
+             l1= false;
+             l2 =true ;
+          }
+
+          startGame() ;
 
 
 
     </script>
-
+    
      
 
     <!-- Optional JavaScript -->

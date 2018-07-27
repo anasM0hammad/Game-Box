@@ -1,7 +1,7 @@
 
 
        var dir = 99 ;
-       var snakeList , foodList , eaten, intervalVar , score , running = false , speed , fps ,counter ;  // counter : to regulate speed
+       var snakeList , foodList , eaten, intervalVar , score , running = false , speed , fps ,counter , level ;  // counter : to regulate speed
 
 
 
@@ -56,6 +56,17 @@
            ctx.restore() ;
         }
 
+         drawboundary = function(){
+         	ctx.save();
+         	ctx.style = "black" ;
+         	ctx.fillRect(0 , 0 , 7 , 300) ;
+         	ctx.fillRect(0 , 0 , 350 , 7) ;
+         	ctx.fillRect(343 , 0 , 7 , 300) ;
+         	ctx.fillRect(0 , 293, 350 , 7) ;
+
+            ctx.restore();
+         }
+
         document.onkeydown = function(event){
 
             if(event.keyCode == 37 && dir !=2){
@@ -84,7 +95,7 @@
              
                 if(i==0)
                 {
-                    snakeList[i].x = snakeList[i].x - 10 - speed ;
+                    snakeList[i].x = snakeList[i].x - 8 - speed ;
                  }
 
                  else
@@ -99,7 +110,7 @@
 
                  if(i==0)
                 {
-                    snakeList[i].y = snakeList[i].y - 10 - speed;
+                    snakeList[i].y = snakeList[i].y - 8 - speed;
                  }
 
                  else
@@ -114,7 +125,7 @@
 
                 if(i==0)
                 {
-                    snakeList[i].x = snakeList[i].x + 10 + speed ;
+                    snakeList[i].x = snakeList[i].x + 8 + speed ;
                  }
 
                  else
@@ -129,7 +140,7 @@
 
                  if(i==0)
                 {
-                    snakeList[i].y = snakeList[i].y + 10 + speed ;
+                    snakeList[i].y = snakeList[i].y + 8 + speed ;
                  }
 
                  else
@@ -153,29 +164,32 @@
             }
          }
 
+        
+
+
          incSnakeBody = function(){
              
              var new_x ;
              var new_y ;
 
              if(dir == 0){
-                new_x = snakeList[0].x - 5  ;
+                new_x = snakeList[0].x - 8  ;
                 new_y = snakeList[0].y;
              }
 
            else if(dir == 1){
                 new_x = snakeList[0].x  ;
-                new_y = snakeList[0].y - 5 ;
+                new_y = snakeList[0].y - 8 ;
              }
 
             else if(dir == 2){
-                new_x = snakeList[0].x + 5 ;
+                new_x = snakeList[0].x + 8 ;
                 new_y = snakeList[0].y;
              }
 
             else if(dir == 3){
                 new_x = snakeList[0].x  ;
-                new_y = snakeList[0].y + 5 ;
+                new_y = snakeList[0].y + 8 ;
              }
        
             snakeList.unshift({x:new_x , y: new_y}) ;
@@ -199,6 +213,16 @@
          		return true;
          	}
          }
+
+        function checkLevel(l1,l2){
+         	if(l1 == true){
+         		level = 0 ;
+         	}
+
+         	else if (l2 == true){
+         		level = 1 ;
+         	}
+         }
          
 
         
@@ -207,7 +231,6 @@
             ctx.clearRect(0,0, 350, 300) ;
             snakeList.forEach(drawSnake) ;
             updateSnakeList() ;
-            checkBoundary() ;
             foodAppear();
             foodList.forEach(drawFood);
            
@@ -227,10 +250,21 @@
             	}
             }
 
-             if(speed <= 10 && counter > 4){
+             if(speed <= 8 && counter > 4){
                     speed = speed +1 ;
                     counter = 0 ;
                  }
+
+             if(level==0){
+             	noBoundary();
+             }    
+
+             else if(level == 1){
+             	drawboundary();
+             	boundary();
+             }
+
+             checkLevel(l1 , l2) ;
 
              ctx.font = "14px comic sans MS";
              ctx.fillStyle = "blue" ;
@@ -238,7 +272,7 @@
             
         }
 
-        checkBoundary = function(){
+        noBoundary = function(){
             if(snakeList[0].x < 0){
                 snakeList[0].x = 350 ;
             }  
@@ -256,6 +290,29 @@
             }
         }
 
+        boundary = function(){
+
+        	if(snakeList[0].x <= -5){
+        		clearInterval(intervalVar);
+        		gameOverMsg();                 
+        	}
+
+        	else if(snakeList[0].x >= 345){
+        		clearInterval(intervalVar) ;
+        		gameOverMsg()
+        	}
+
+        	else if(snakeList[0].y <= -5){
+        		clearInterval(intervalVar);
+        		gameOverMsg();
+        	}
+
+        	else if(snakeList[0].y >= 295){
+        		clearInterval(intervalVar);
+        		gameOverMsg();
+        	}
+        }
+
 
      startGame = function(){                 // Initial condition of the game when it starts
 
@@ -270,7 +327,7 @@
           foodList = [] ;
          dir = 99 ;
          score = 0 ;
-        
+         level=0 ;
          eaten = true ;
          running = true ;
          speed = 0 ;
@@ -278,4 +335,4 @@
          intervalVar =  setInterval(updateSnakePosition, 40) ;
      }
 
-     startGame() ;
+    
