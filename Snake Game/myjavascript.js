@@ -1,9 +1,8 @@
 
-
+       var ctx = document.getElementById("ctx").getContext("2d");
        var dir = 99 ;
-       var snakeList , foodList , eaten, intervalVar , score , running = false , speed , fps ,counter , level ;  // counter : to regulate speed
-
-
+       var snakeList , foodList , eaten, intervalVar , score , start = 0 , speed , fps ,counter , level ;  // counter : to regulate speed
+      
 
        var snakeBody = {                    // Defining the snake body
 
@@ -36,10 +35,9 @@
 
         gameOverMsg = function(){
         	ctx.save() ;
-
         	ctx.fillStyle = "red" ;
         	ctx.font = "30px calibri";
-        	ctx.fillText("GAME OVER..!", 70 , 150);
+        	ctx.fillText("GAME OVER..!", 80 , 150);
 
         	ctx.restore();
         }
@@ -58,7 +56,7 @@
 
          drawboundary = function(){
          	ctx.save();
-         	ctx.style = "black" ;
+         	ctx.style = "blue" ;
          	ctx.fillRect(0 , 0 , 7 , 300) ;
          	ctx.fillRect(0 , 0 , 350 , 7) ;
          	ctx.fillRect(343 , 0 , 7 , 300) ;
@@ -268,7 +266,7 @@
 
              ctx.font = "14px comic sans MS";
              ctx.fillStyle = "blue" ;
-             ctx.fillText("score : "+score, 280 , 20);
+             ctx.fillText("score : "+score, 280 , 25);
             
         }
 
@@ -312,7 +310,55 @@
         		gameOverMsg();
         	}
         }
+ 
+       startMsg = function(){
+       	ctx.save() ;
+       	ctx.fillStyle = "red" ;
+       	ctx.font = "28px comic sans MS"
+       	ctx.fillText("Click to start" , 80 , 150) ;
+        ctx.restore();
+         	document.getElementById("ctx").onclick = function(){
+       	
+       		if(start == 0){
+       		startGame();
+       		start = 1 ;
+       	   }
 
+       	}
+       }
+        
+       
+         if(start == 0){
+          level1.onclick = function(){
+
+             level1.style.backgroundColor = "#C82333" ;
+             level2.style.backgroundColor = "#0069D9" ;
+             level2.innerHTML = "OFF" ;
+             level1.innerHTML = "ON" ;
+             l1 =true ;
+             l2 = false ;
+             start = 1 ;
+                console.log(start);
+           }
+         
+         
+         
+            level2.onclick = function(){
+          
+           
+             level2.style.backgroundColor = "#C82333" ;
+             level1.style.backgroundColor = "#0069D9" ;
+             level1.innerHTML = "OFF" ;
+             level2.innerHTML = "ON" ;
+             l1= false;
+             l2 =true ;
+             start = 1;
+             }
+            } 
+           
+    
+          
+    
 
      startGame = function(){                 // Initial condition of the game when it starts
 
@@ -324,15 +370,23 @@
 
           ];
 
-          foodList = [] ;
+         foodList = [] ;
          dir = 99 ;
          score = 0 ;
          level=0 ;
          eaten = true ;
-         running = true ;
+         start = 1;
          speed = 0 ;
          counter = 0 ;
          intervalVar =  setInterval(updateSnakePosition, 40) ;
+           console.log(start);
      }
 
+       if(start == 0){
+       	startMsg();
+       }
+
+ 
+     
+    
     
