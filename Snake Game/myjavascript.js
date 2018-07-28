@@ -16,12 +16,6 @@
       
        };
 
-       var hardBoundaryBody = {
-
-           height : 15,
-           width : 15 ,
-           color : "blue" 
-       };
 
        drawSnake = function(sb , i){         // It takes index of snake body 
          ctx.save() ;
@@ -63,9 +57,9 @@
 
         drawHardBoundary = function(){
             ctx.save() ;
-            ctx.fillStyle = hardBoundaryBody.color ;
-            ctx.fillRect(125 , 120 , 15 , 60) ;
-            ctx.fillRect(225 , 120 , 15 , 60) ;
+            ctx.fillStyle = "blue" ;
+            ctx.fillRect(125 , 120 , 10 , 60) ;
+            ctx.fillRect(225 , 120 , 10 , 60) ;
            
             ctx.restore() ;
         }
@@ -285,7 +279,10 @@
              else if(level == 2){
                 drawHardBoundary();
                 drawboundary();
-                hardBoundary();
+                if(hardBoundary()){
+                    clearInterval(intervalVar);
+                    gameOverMsg();
+                }
                 boundary();
              }
 
@@ -339,12 +336,30 @@
         }
 
         hardBoundary = function(){
-          for(var i = 0 ; i<10 ; i++){
-            if(collisionSnake(snakeList[0] , hardBoundaryBody[i])){
-                clearInterval(intervalVar);
-                gameOverMsg();
+         
+        if(snakeList[0].x >=115 && snakeList[0].x<=130){
+            if(snakeList[0].y >=115 && snakeList[0].y <=180){
+                return true ;
             }
-          }
+        }
+
+        else if(snakeList[0].x <=130 && snakeList[0].x >=125){
+            if(snakeList[0].y >=115 && snakeList[0].y <=170){
+                return true ;
+            }
+        }
+
+        else if(snakeList[0].x >=215 && snakeList[0].x <=230){
+            if(snakeList[0].y >=115 && snakeList[0].y <=180){
+                return true ;
+            }
+        }
+
+        else if(snakeList[0].x <=230 && snakeList[0].x >=225){
+            if(snakeList[0].y >=115 && snakeList[0].y <=170){
+                return true ;
+            }
+        }
 
         }
  
@@ -430,21 +445,6 @@
 
           ];
 
-          hardBoundaryBody = [
-           
-            { x: 125 , y: 120},
-            { x: 125 , y: 135},
-            { x: 125 , y: 150},
-            { x: 125 , y: 165},
-            { x: 125 , y: 180},
-            { x: 225 , y: 120},
-            { x: 225 , y: 135},
-            { x: 225 , y: 150},
-            { x: 225 , y: 165},
-            { x: 225 , y: 180}
-
-
-          ];
 
          foodList = [] ;
          dir = 99 ;
