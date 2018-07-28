@@ -16,6 +16,13 @@
       
        };
 
+       var hardBoundaryBody = {
+
+           height : 15,
+           width : 15 ,
+           color : "blue" 
+       };
+
        drawSnake = function(sb , i){         // It takes index of snake body 
          ctx.save() ;
 
@@ -52,6 +59,15 @@
         //  ctx.fill() ;
             ctx.fillRect(f.x , f.y , 15 , 15) ;
            ctx.restore() ;
+        }
+
+        drawHardBoundary = function(){
+            ctx.save() ;
+            ctx.fillStyle = hardBoundaryBody.color ;
+            ctx.fillRect(125 , 120 , 15 , 60) ;
+            ctx.fillRect(225 , 120 , 15 , 60) ;
+           
+            ctx.restore() ;
         }
 
          drawboundary = function(){
@@ -212,7 +228,7 @@
          	}
          }
 
-        function checkLevel(l1,l2){
+        function checkLevel(l1,l2,l3){
          	if(l1 == true){
          		level = 0 ;
          	}
@@ -220,6 +236,10 @@
          	else if (l2 == true){
          		level = 1 ;
          	}
+
+            else if(l3 == true){
+                level = 2 ;
+            }
          }
          
 
@@ -262,7 +282,14 @@
              	boundary();
              }
 
-             checkLevel(l1 , l2) ;
+             else if(level == 2){
+                drawHardBoundary();
+                drawboundary();
+                hardBoundary();
+                boundary();
+             }
+
+             checkLevel(l1 , l2 , l3) ;
 
              ctx.font = "14px comic sans MS";
              ctx.fillStyle = "blue" ;
@@ -310,6 +337,16 @@
         		gameOverMsg();
         	}
         }
+
+        hardBoundary = function(){
+          for(var i = 0 ; i<10 ; i++){
+            if(collisionSnake(snakeList[0] , hardBoundaryBody[i])){
+                clearInterval(intervalVar);
+                gameOverMsg();
+            }
+          }
+
+        }
  
        startMsg = function(){
        	ctx.save() ;
@@ -334,10 +371,13 @@
             if(start == 0){
              level1.style.backgroundColor = "#C82333" ;
              level2.style.backgroundColor = "#0069D9" ;
+             level3.style.backgroundColor = "#0069D9" ;
              level2.innerHTML = "OFF" ;
              level1.innerHTML = "ON" ;
+             level3.innerHTML = "OFF" ;
              l1 =true ;
              l2 = false ;
+             l3= false ;
               }
            }
          
@@ -348,10 +388,30 @@
              if(start == 0){
              level2.style.backgroundColor = "#C82333" ;
              level1.style.backgroundColor = "#0069D9" ;
+             level3.style.backgroundColor = "#0069D9" ;
              level1.innerHTML = "OFF" ;
              level2.innerHTML = "ON" ;
+             level3.innerHTML = "OFF"
              l1= false;
              l2 =true ;
+             l3 = false ;
+            
+             }
+            } 
+
+
+            level3.onclick = function(){
+          
+             if(start == 0){
+             level3.style.backgroundColor = "#C82333" ;
+             level2.style.backgroundColor = "#0069D9";
+             level1.style.backgroundColor = "#0069D9" ;
+             level1.innerHTML = "OFF" ;
+             level2.innerHTML = "OFF";
+             level3.innerHTML = "ON" ;
+             l1= false;
+             l2 =false ;
+             l3 = true ;
             
              }
             } 
@@ -367,6 +427,22 @@
               { x:150 , y: 100 },             // index = 2
               { x:160 , y: 100 },            // index = 1
               { x:170 , y: 100 }             // index = 0
+
+          ];
+
+          hardBoundaryBody = [
+           
+            { x: 125 , y: 120},
+            { x: 125 , y: 135},
+            { x: 125 , y: 150},
+            { x: 125 , y: 165},
+            { x: 125 , y: 180},
+            { x: 225 , y: 120},
+            { x: 225 , y: 135},
+            { x: 225 , y: 150},
+            { x: 225 , y: 165},
+            { x: 225 , y: 180}
+
 
           ];
 
