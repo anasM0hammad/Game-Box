@@ -20,6 +20,28 @@
  	radius : 10
  };
 
+ document.onkeydown = function(event){
+ 	if(event.keyCode == 37){
+ 		base.left = true ;
+ 		base.right = false;
+ 	}
+
+ 	else if(event.keyCode == 39){
+ 		base.left = false ;
+ 		base.right = true;
+ 	}
+ }
+
+ document.onkeyup = function(event){
+ 	if(event.keyCode == 37){
+ 		base.left = false ;
+ 	}
+
+ 	else if(event.keyCode == 39){
+ 		base.right = false ;
+ 	}
+ }
+
   drawBase = function(){
   	ctx.save();
   	ctx.fillStyle = base.color ;
@@ -36,6 +58,32 @@
   	ctx.restore();
   }
 
+  updateBasePosition = function(){
+
+  	if(base.left){
+  		base.x = base.x - 5 ;
+  	}
+
+  	else if(base.right){
+  		base.x = base.x + 5 ;
+
+  	}
+
+  	if(base.x <= 0){
+  		base.x = 0 ;
+  	}
+
+  	if(base.x >= 325){
+  		base.x = 325 ;
+  	}
+  }
+
+  updateGame = function(){
+  	ctx.clearRect(0 , 0 , 400 ,300) ;
+  	updateBasePosition();
+  	drawBase();
+  	drawBall();
+  }
 
 
  startGame = function(){
@@ -48,6 +96,8 @@
 
   drawBall();
   drawBase();
+
+  setInterval(updateGame, 40);
  
    
  }
