@@ -17,7 +17,9 @@
     x:0,
     y:0,
  	color : "red" ,
- 	radius : 10
+ 	radius : 10,
+ 	spdX : -4,
+ 	spdY : -4
  };
 
  document.onkeydown = function(event){
@@ -78,9 +80,32 @@
   	}
   }
 
+  updateBallPosition = function(){
+
+   ball.x = ball.x + ball.spdX ;
+   ball.y = ball.y + ball.spdY ;
+
+   if(ball.x <= 0){
+   	ball.spdX = ball.spdX*(-1) ;
+   }
+
+   else if(ball.x >= 400){
+   	ball.spdX = ball.spdX*(-1);
+   }
+
+   else if(ball.y <=0){
+   	ball.spdY = ball.spdY * (-1) ;
+   }
+   else if(ball.y >= 300){
+   	ball.spdY = ball.spdY * (-1);
+   }
+
+  }
+
   updateGame = function(){
   	ctx.clearRect(0 , 0 , 400 ,300) ;
   	updateBasePosition();
+  	updateBallPosition();
   	drawBase();
   	drawBall();
   }
@@ -97,7 +122,7 @@
   drawBall();
   drawBase();
 
-  setInterval(updateGame, 40);
+  setInterval(updateGame, 30);
  
    
  }
