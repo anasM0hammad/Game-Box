@@ -1,6 +1,6 @@
 
  var ctx = document.getElementById("ctx").getContext("2d") ;
- 
+ var tileList , noOfTiles  ;
  var base = {
    
     x : 0,
@@ -20,6 +20,13 @@
  	radius : 6,
  	spdX : -4,
  	spdY : -4
+ };
+
+ var tile = {
+ 
+ 	color : "green",
+ 	height : 12 ,
+ 	width : 30
  };
 
  document.onkeydown = function(event){
@@ -57,6 +64,13 @@
   	ctx.beginPath();
   	ctx.arc(ball.x , ball.y , ball.radius , 0 , 2*Math.PI) ;
   	ctx.fill();
+  	ctx.restore();
+  }
+
+  drawTile = function(t , i){
+  	ctx.save();
+  	ctx.fillStyle = tile.color ;
+  	ctx.fillRect(t.x ,t.y , tile.width , tile.height);
   	ctx.restore();
   }
 
@@ -132,13 +146,29 @@
 
   }
 
+  collisionBallTile = function(t , ball){
+     if(ball.y + ball.radius >= t.y && ball.y - ball.radius <= t.y + tile.height && ball.x + ball.radius >= t.x && ball.x - ball.radius <= (t.x + tile.width) ){
+     	return true ;
+     }
+
+  }
+
   updateGame = function(){
   	ctx.clearRect(0 , 0 , 400 ,300) ;
+  	tileList.forEach(drawTile);
   	drawBase();
   	drawBall();
     collisionBaseBall(base , ball)
     updateBasePosition();
   	updateBallPosition();
+
+  	for(key in tileList){
+  		if(collisionBallTile(tileList[key], ball)){
+  			delete tileList[key];
+  			ball.spdY = ball.spdY * (-1);
+  			console.log("Hello");
+  		}
+  	}
   }
 
 
@@ -149,6 +179,23 @@
 
   ball.x = base.x + 35 ;
   ball.y = base.y - 10 ;
+           
+  noOfTiles = 0;
+
+  var tileX = 6 ;
+  var tileY = 6 ;
+  tileList = [];
+
+  for(var i=1 ; i<6 ; i++){
+       tileX = 6 ;
+  	for(var j=1 ; j<=11 ; j++ ){
+  		tileList[noOfTiles] = {x:tileX , y:tileY};
+  		noOfTiles++ ;
+  		tileX = tileX + 36 ;
+    }
+    tileY = tileY + 18 ;
+
+  }
 
   drawBall();
   drawBase();
