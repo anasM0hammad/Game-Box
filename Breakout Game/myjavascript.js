@@ -1,6 +1,9 @@
 
  var ctx = document.getElementById("ctx").getContext("2d") ;
- var tileList , noOfTiles  ;
+ ctx.fontStyle = "blue" ;
+ ctx.font = "16px comic sans MS";
+
+ var tileList , noOfTiles , score =0 ;
  var base = {
    
     x : 0,
@@ -166,9 +169,11 @@
   		if(collisionBallTile(tileList[key], ball)){
   			delete tileList[key];
   			ball.spdY = ball.spdY * (-1);
-  			console.log("Hello");
+  			score++;
   		}
   	}
+
+  	ctx.fillText("Score : "+score , 10 , 285);
   }
 
 
@@ -181,6 +186,7 @@
   ball.y = base.y - 10 ;
            
   noOfTiles = 0;
+  score = 0 ;
 
   var tileX = 6 ;
   var tileY = 6 ;
