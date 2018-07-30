@@ -17,7 +17,7 @@
     x:0,
     y:0,
  	color : "red" ,
- 	radius : 10,
+ 	radius : 6,
  	spdX : -4,
  	spdY : -4
  };
@@ -85,29 +85,60 @@
    ball.x = ball.x + ball.spdX ;
    ball.y = ball.y + ball.spdY ;
 
-   if(ball.x <= 0){
+   if(ball.x <= 0 + ball.radius){
    	ball.spdX = ball.spdX*(-1) ;
    }
 
-   else if(ball.x >= 400){
+   else if(ball.x >= 400 - ball.radius){
    	ball.spdX = ball.spdX*(-1);
    }
 
-   else if(ball.y <=0){
+   else if(ball.y <=0 + ball.radius){
    	ball.spdY = ball.spdY * (-1) ;
    }
-   else if(ball.y >= 300){
+
+   else if(ball.y >= 300 - ball.radius){
    	ball.spdY = ball.spdY * (-1);
    }
 
   }
 
+ /* collisionBaseBall = function(base , ball){
+
+     if(ball.y + ball.radius >= 250 && ball.y - ball.radius <= 265 && ball.x + ball.radius >= base.x && ball.x - ball.radius <= (base.x + 75) ){
+     	ball.spdY = ball.spdY * (-1)    ;                                                   // changing the direction after collision with base
+        
+        if(ball.x + ball.radius == base.x || ball.x - ball.radius == (base.x + 75)){
+        	ball.spdX = ball.spdX * (-1);
+        }
+
+     }
+  }*/
+
+  collisionBaseBall = function(base , ball){
+
+  	if(ball.y + ball.radius == 250 && ball.x + ball.radius >= base.x && ball.x - ball.radius <= (base.x + 75)){
+  		ball.spdY = ball.spdY * (-1);
+  	}
+
+  	else if(ball.y - ball.radius == 265 &&  ball.x + ball.radius >= bae.x && ball.x - ball.radius <= (base.x + 75) ){
+         ball. spdY = ball.spdY * (-1);
+  	}
+     
+     else if(ball.y + ball.radius > 250 && ball.y - ball.radius < 265 && ball.x + ball.radius >= base.x && ball.x - ball.radius <= (base.x + 75) ){
+     	ball.spdY = ball.spdY * (-1);
+     	ball.spdX = ball.spdX * (-1);
+     }
+
+  }
+
   updateGame = function(){
   	ctx.clearRect(0 , 0 , 400 ,300) ;
-  	updateBasePosition();
-  	updateBallPosition();
   	drawBase();
   	drawBall();
+    collisionBaseBall(base , ball)
+    updateBasePosition();
+  	updateBallPosition();
   }
 
 
