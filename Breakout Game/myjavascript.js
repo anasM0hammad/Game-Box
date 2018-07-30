@@ -3,7 +3,7 @@
  ctx.fontStyle = "blue" ;
  ctx.font = "16px comic sans MS";
 
- var tileList , noOfTiles , score =0 ;
+ var tileList , noOfTiles , score =0 , lives , intervalVal ;
  var base = {
    
     x : 0,
@@ -156,6 +156,37 @@
 
   }
 
+  checkLives = function(){
+  	if(ball.y + ball.radius >= 300 ){
+  		lives -- ;
+  		 ball.x = base.x + 35 ;
+         ball.y = base.y - 10 ;
+  		ball.x
+  		return true ;
+  	}
+  }
+
+  gameWin = function(){
+  	if(score == 55){
+  	ctx.save();
+  	ctx.fillStyle = "red";
+  	ctx.font = "35px  comic sans MS "; 
+  	ctx.fillText("You Win ..!", 110 , 150 );
+  	ctx.restore();
+  	clearInterval(intervalVal);
+  	}
+  }
+
+  gameOverMsg = function(){
+  	ctx.save();
+  	ctx.fillStyle = "red";
+  	ctx.font = "35px  comic sans MS "; 
+  	ctx.fillText("Game Over ..!", 100 , 150 );
+  	ctx.restore();
+  	clearInterval(intervalVal);
+
+  }
+
   updateGame = function(){
   	ctx.clearRect(0 , 0 , 400 ,300) ;
   	tileList.forEach(drawTile);
@@ -164,6 +195,8 @@
     collisionBaseBall(base , ball)
     updateBasePosition();
   	updateBallPosition();
+  	checkLives();
+  	gameWin();
 
   	for(key in tileList){
   		if(collisionBallTile(tileList[key], ball)){
@@ -173,7 +206,12 @@
   		}
   	}
 
+  	if(lives <=0){
+  		gameOverMsg();
+  	}
+
   	ctx.fillText("Score : "+score , 10 , 285);
+  	ctx.fillText("Lives : "+lives , 330 , 285);
   }
 
 
@@ -187,6 +225,7 @@
            
   noOfTiles = 0;
   score = 0 ;
+  lives = 3 ;
 
   var tileX = 6 ;
   var tileY = 6 ;
@@ -206,7 +245,7 @@
   drawBall();
   drawBase();
 
-  setInterval(updateGame, 30);
+intervalVal = setInterval(updateGame, 25);
  
    
  }
