@@ -3,7 +3,7 @@
  ctx.fontStyle = "blue" ;
  ctx.font = "16px comic sans MS";
 
- var tileList , noOfTiles , score =0 , lives , intervalVal ;
+ var tileList , noOfTiles , score =0 , lives , intervalVal , noOfStrTiles , strTileList  ;
  var base = {
    
     x : 0,
@@ -30,6 +30,12 @@
  	color : "green",
  	height : 12 ,
  	width : 30
+ };
+
+ var strongTile = {
+ 	color : "blue",
+ 	width : 30,
+    height : 12
  };
 
  document.onkeydown = function(event){
@@ -74,6 +80,13 @@
   	ctx.save();
   	ctx.fillStyle = tile.color ;
   	ctx.fillRect(t.x ,t.y , tile.width , tile.height);
+  	ctx.restore();
+  }
+
+  drawStrongTile = function(t,i){
+  	ctx.save();
+  	ctx.fillStyle = strongTile.color ;
+  	ctx.fillRect(t.x , t.y , strongTile.width , strongTile.height);
   	ctx.restore();
   }
 
@@ -167,7 +180,7 @@
   }
 
   gameWin = function(){
-  	if(score == 55){
+  	if(score == 66){
   	ctx.save();
   	ctx.fillStyle = "red";
   	ctx.font = "35px  comic sans MS "; 
@@ -190,6 +203,7 @@
   updateGame = function(){
   	ctx.clearRect(0 , 0 , 400 ,300) ;
   	tileList.forEach(drawTile);
+  	strTileList.forEach(drawStrongTile);
   	drawBase();
   	drawBall();
     collisionBaseBall(base , ball)
@@ -197,6 +211,32 @@
   	updateBallPosition();
   	checkLives();
   	gameWin();
+
+  	for(key in strTileList){
+  		if(collisionBallTile(strTileList[key],ball)){
+         	delete strTileList[key];
+  			ball.spdY  = -ball.spdY ;
+  			score++ ;
+
+  			if(ball.spdY < 0){
+  				ball.spdY++ ;
+  			}
+  			else{
+  				ball.spdY-- ;
+  			}
+
+  			if(ball.spdX < 0){
+  				ball.spdX++ ;
+  			}
+  			else{
+  				ball.spdX-- ;
+  			}
+  		 
+  		}
+	}
+
+
+ 
 
   	for(key in tileList){
   		if(collisionBallTile(tileList[key], ball)){
@@ -222,14 +262,25 @@
 
   ball.x = base.x + 35 ;
   ball.y = base.y - 10 ;
-           
+  
+  noOfStrTiles = 0;         
   noOfTiles = 0;
   score = 0 ;
   lives = 3 ;
+  
 
   var tileX = 6 ;
-  var tileY = 6 ;
+  var tileY = 24 ;
+  var strTileX = 6 ;
+  var strTileY = 6 ;
   tileList = [];
+  strTileList = [];
+
+  for(var k =1 ; k<=11 ; k++){
+  	strTileList[noOfStrTiles] = {x:strTileX , y:strTileY};
+  	noOfStrTiles++ ;
+  	strTileX = strTileX + 36 ;
+  }
 
   for(var i=1 ; i<6 ; i++){
        tileX = 6 ;
