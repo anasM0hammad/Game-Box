@@ -219,17 +219,17 @@
   			score++ ;
 
   			if(ball.spdY < 0){
-  				ball.spdY-- ;
+  				ball.spdY = ball.spdY - 0.4 ;
   			}
   			else{
-  				ball.spdY++ ;
+  				ball.spdY = ball.spdY + 0.4 ;
   			}
 
   			if(ball.spdX < 0){
-  				ball.spdX-- ;
+  				ball.spdX = ball.spdX - 0.4 ;
   			}
   			else{
-  				ball.spdX++ ;
+  				ball.spdX = ball.spdX + 0.4 ;
   			}
   		 
   		}
