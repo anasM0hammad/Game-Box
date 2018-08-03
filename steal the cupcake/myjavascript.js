@@ -11,6 +11,7 @@ var tile = new Image();
 
 var tileList ;
 var foodList ;
+var foodDrop;
 
 var score =0 ;
 var blink = 0;
@@ -21,9 +22,9 @@ var intervalVar ;
 var blinkCounter =0;
 
 var foodObject = {
-   'width' : 50 ,
-   'height' : 50,
-   'speed' : 0
+   'width' : 40 ,
+   'height' : 40,
+   'speed' : 15
 };
 
 var tileObject = {
@@ -35,7 +36,7 @@ var catcher = {
    'width' : 30,
    'height' : 50,
    'x':100 ,
-   'y':250,
+   'y':280,
    'jump': 0 ,
    'jumpUnit' : 20,
    'onAir' : false,
@@ -77,7 +78,7 @@ var catcher = {
                                 catcher.speed = 20 ;
                           	}
 
-                          	  if(event.keyCode == 38 && catcher.onAir!=true && catcher.y ==250){
+                          	  if(event.keyCode == 38 && catcher.onAir!=true && catcher.y ==280){
                           		catcher.onAir = true ;
                           		catcher.jump = 100 ;
                           	}
@@ -141,16 +142,35 @@ var catcher = {
                           	}
                           }
 
+                          updateFoodPosition = function(){
+                          	for(var i in foodList){
+
+                          		if(foodList[i].y >= 500 ){
+                          			foodList.slice(i,1);
+                          		}
+
+                          		else{
+                          			foodList[i].y = foodList[i].y + foodObject.speed ;
+                          		}
+                          	}
+                          }
+
                           updateGame = function(){
                           	ctx.clearRect(0 , 0 ,500 , 400) ;
                           	drawObject(background , 0 , 0 , 500 , 400);
+
 
                           	//blinking of catcher
 
                           	 blinkCounter++;
 
+                         if(catcher.onAir){
+                            drawObject(catcherFour , catcher.x , catcher.y , catcher.width , catcher.height);
+                         }
 
-                          	if(blink == 0){
+                         else{
+
+                       	if(blink == 0){
                           	drawObject(catcherTwo , catcher.x , catcher.y , catcher.width , catcher.height) ;
 
                           	 if(blinkCounter > 4){
@@ -165,9 +185,23 @@ var catcher = {
                           	 blink = 0;
                             }
 
+                        }
+
                             //Motion of catcher
                             updateCatcherPosition();
+                            updateFoodPosition() ;
                             jumpCatcher();
+
+                            foodTimer++;
+                           	if(foodTimer > 30){
+                           		foodList.push({'x': foodDrop[Math.round(Math.random()*9)], 'y':0});
+                       			foodTimer = 0;
+                           	}
+
+                           	for(var i in foodList){
+                           		drawObject(food , foodList[i].x , foodList[i].y, foodObject.width, foodObject.height);
+                           	}
+
 
                           	for(var i = 0 ; i< 10 ; i++){
                             	drawObject(tile , tileList[i].x , tileList[i].y , tileObject.width , tileObject.height);
@@ -183,7 +217,7 @@ var catcher = {
                            	level = 100 ;
                            	blink = 0 ;
                            	catcher.x  = 100;
-                           	catcher.y = 250;
+                           	catcher.y = 280;
                            	catcher.left = false ;
                            	catcher.right = false ;
                            	catcher.onAir = false ;
@@ -194,9 +228,10 @@ var catcher = {
 
                            	foodList = [];
                            	tileList = [];
+                           	foodDrop = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500] ;
 
                            	for(var i=0; i<10 ; i++ ){
-                               tileList.push({'x':i*50 , 'y':300});
+                               tileList.push({'x':i*50 , 'y':330});
                            	}
 
                            	intervalVar = setInterval(updateGame , 50);
