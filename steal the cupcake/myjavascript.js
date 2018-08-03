@@ -34,10 +34,10 @@ var tileObject = {
 var catcher = {
    'width' : 30,
    'height' : 50,
-   'x':200 ,
+   'x':100 ,
    'y':250,
    'jump': 0 ,
-   'jumpUnit' : 5,
+   'jumpUnit' : 20,
    'onAir' : false,
    'speed' : 0 ,
    'left' : false ,
@@ -77,8 +77,9 @@ var catcher = {
                                 catcher.speed = 20 ;
                           	}
 
-                          	else if(event.keyCode == 38){
+                          	  if(event.keyCode == 38 && catcher.onAir!=true && catcher.y ==250){
                           		catcher.onAir = true ;
+                          		catcher.jump = 100 ;
                           	}
                           }
 
@@ -93,8 +94,27 @@ var catcher = {
                                 catcher.right = false ;
                           	}
 
-                          	else if(event.keyCode == 38){
-                          		catcher.onAir = true ;
+                          }
+                          
+                          //function to Jump
+                          jumpCatcher = function(){
+
+                            //Moving Up
+                          	if(catcher.onAir && catcher.jump > 0){
+                          		catcher.y = catcher.y - catcher.jumpUnit ;
+                          		catcher.jump = catcher.jump - catcher.jumpUnit ;
+                          	}
+                            
+                            //Moving Down
+                          	if(catcher.jump <= 0 && catcher.onAir && catcher.jump > -100){
+                          		catcher.y = catcher.y + catcher.jumpUnit ;
+                          		catcher.jump = catcher.jump - catcher.jumpUnit ;
+                          	}
+                             
+                             //After returning to initial postion
+                          	if(catcher.onAir && catcher.jump <= -100){
+                          		catcher.onAir = false ;
+                          		catcher.jump = 100 ;
                           	}
                           }
 
@@ -147,6 +167,7 @@ var catcher = {
 
                             //Motion of catcher
                             updateCatcherPosition();
+                            jumpCatcher();
 
                           	for(var i = 0 ; i< 10 ; i++){
                             	drawObject(tile , tileList[i].x , tileList[i].y , tileObject.width , tileObject.height);
