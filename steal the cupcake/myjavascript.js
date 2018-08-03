@@ -9,7 +9,8 @@ var blood = new Image();
 var food = new Image();
 var tile = new Image();
 
-var tileList , foodList ;
+var tileList ;
+var foodList ;
 
 var score =0 ;
 var blink = 0;
@@ -17,6 +18,7 @@ var level = 100 ;
 var gameOver = false ;
 var foodTimer ;
 var intervalVar ;
+var blinkCounter =0;
 
 var foodObject = {
    'width' : 50 ,
@@ -60,23 +62,97 @@ var catcher = {
                           	ctx.drawImage(object , x , y , width , height) ;
                           }
 
+                         
+                          // Motion Controls of catcher
+                          document.onkeydown = function(event){
+                          	if(event.keyCode == 37){
+                          		catcher.left = true ;
+                          		catcher .right = false ;
+                          		catcher.speed = -20 ;
+                          	}
+
+                          	else if(event.keyCode == 39){
+                          		catcher.left = false ;
+                                catcher.right = true ;
+                                catcher.speed = 20 ;
+                          	}
+
+                          	else if(event.keyCode == 38){
+                          		catcher.onAir = true ;
+                          	}
+                          }
+
+                            document.onkeyup = function(event){
+                          	if(event.keyCode == 37){
+                          		catcher.left = false ;
+                          		catcher .right = false ;
+                          	}
+
+                          	else if(event.keyCode == 39){
+                          		catcher.left = false ;
+                                catcher.right = false ;
+                          	}
+
+                          	else if(event.keyCode == 38){
+                          		catcher.onAir = true ;
+                          	}
+                          }
+
+
+
+                          //Function to update the postion of catcher every fps
+
+                          updateCatcherPosition = function(){
+
+                          	if(catcher.left == true){
+                                catcher.x = catcher.x + catcher.speed ;
+                          	}
+
+                          	if(catcher.right == true){
+                          		catcher.x = catcher.x + catcher.speed ;
+                          	}
+
+                          	if(catcher.x >= 500 - catcher.width){
+                          		catcher.x = 500 - catcher.width;
+                          	}
+
+                          	if(catcher.x <=0){
+                          		catcher.x = 0;
+                          	}
+                          }
+
                           updateGame = function(){
                           	ctx.clearRect(0 , 0 ,500 , 400) ;
                           	drawObject(background , 0 , 0 , 500 , 400);
 
+                          	//blinking of catcher
+
+                          	 blinkCounter++;
+
+
                           	if(blink == 0){
                           	drawObject(catcherTwo , catcher.x , catcher.y , catcher.width , catcher.height) ;
-                          	blink = 1;
+
+                          	 if(blinkCounter > 4){
+                          	    blink = 1;
+                          	    blinkCounter = 0;
+                              }
                             }
 
+                           
                             else if(blink ==1 ){
                              drawObject(catcherOne , catcher.x , catcher.y , catcher.width , catcher.height) ;
                           	 blink = 0;
                             }
 
-                          	for(var i = 0 ; i<tileList.length ; i++){
+                            //Motion of catcher
+                            updateCatcherPosition();
+
+                          	for(var i = 0 ; i< 10 ; i++){
                             	drawObject(tile , tileList[i].x , tileList[i].y , tileObject.width , tileObject.height);
                            	}
+
+
                           	
                           }
 
@@ -93,18 +169,16 @@ var catcher = {
                            	catcher.safe = true ;
                            	gameOver = false ;
                            	foodTimer = 0;
+                           	blinkCounter = 0;
 
                            	foodList = [];
                            	tileList = [];
 
                            	for(var i=0; i<10 ; i++ ){
-                               //tileList.push({'x':i*50 , 'y':400});
-                               tileList[i] = {x:i*50 , y:400} ;
+                               tileList.push({'x':i*50 , 'y':300});
                            	}
 
-                           
-
-                           	intervalVar = setInterval(updateGame , 110);
+                           	intervalVar = setInterval(updateGame , 50);
 
                          }
                            
