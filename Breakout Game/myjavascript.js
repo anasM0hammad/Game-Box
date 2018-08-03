@@ -3,7 +3,7 @@
  ctx.fontStyle = "blue" ;
  ctx.font = "16px comic sans MS";
 
- var tileList , noOfTiles , score =0 , lives , intervalVal , noOfStrTiles , strTileList  ;
+ var tileList , noOfTiles , score =0 , lives , intervalVal , noOfStrTiles , strTileList , start =0 ;
  var base = {
    
     x : 0,
@@ -218,7 +218,7 @@
   			ball.spdY  = -ball.spdY ;
   			score++ ;
 
-  			if(ball.spdY < 0){
+  		/*	if(ball.spdY < 0){
   				ball.spdY = ball.spdY - 0.4 ;
   			}
   			else{
@@ -230,7 +230,7 @@
   			}
   			else{
   				ball.spdX = ball.spdX + 0.4 ;
-  			}
+  			}*/
   		 
   		}
 	}
@@ -254,6 +254,22 @@
   	ctx.fillText("Lives : "+lives , 330 , 285);
   }
 
+    startMsg = function(){
+       	ctx.save() ;
+       	ctx.fillStyle = "red" ;
+       	ctx.font = "28px comic sans MS"
+       	ctx.fillText("Click to start" , 100 , 150) ;
+        ctx.restore();
+         	document.getElementById("ctx").onclick = function(){
+       	
+       		if(start == 0){
+       		startGame();
+       		start = 1 ;
+       	   }
+
+       	}
+       }
+
 
  startGame = function(){
  
@@ -262,6 +278,7 @@
 
   ball.x = base.x + 35 ;
   ball.y = base.y - 10 ;
+  start = 1;
   
   noOfStrTiles = 0;         
   noOfTiles = 0;
@@ -301,4 +318,6 @@ intervalVal = setInterval(updateGame, 25);
    
  }
 
- startGame() ;
+ if(start == 0){
+       	startMsg();
+      }
