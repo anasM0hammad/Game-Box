@@ -43,7 +43,7 @@ var catcher = {
    'speed' : 0 ,
    'left' : false ,
    'right': false,
-   'gravity' : 10,
+   'gravity' : 15,
    'safe': true
 
 };
@@ -97,6 +97,22 @@ var catcher = {
 
                           }
 
+                          //Game Over MSG
+                          gameOverMsg = function(){
+                          	ctx.save();
+                          	ctx.globalAlpha = 0.5;
+                          	drawObject(blood ,150 , 100 , 200 , 160 );
+                          	ctx.globalAlpha = 1.0 ;
+                          	ctx.strokeStyle = "white";
+                          	ctx.font = "30px calibri";
+                          	ctx.strokeText("Game Over" , 200 , 180 ) ;
+                            ctx.restore();
+                              
+                            clearInterval(intervalVar);  
+
+                          }
+
+                          //Collision Functions
                           foodCatcherCollision = function(f){
                             if(f.x + foodObject.width > catcher.x && f.x < catcher.x + catcher.width && f.y + foodObject.height > catcher.y && f.y < catcher.y + catcher.height){
                             	return true ;
@@ -158,6 +174,11 @@ var catcher = {
                           	if(catcher.x <=0){
                           		catcher.x = 0;
                           	}
+
+                          	if(catcher.y >= 400 - catcher.height){
+                          		catcher.y = 400;
+                          		gameOver = true ;
+                          	}
                           }
 
                           updateFoodPosition = function(){
@@ -188,7 +209,7 @@ var catcher = {
 
                          else{
 
-                       	if(blink == 0){
+                       	if(blink == 0 && catcher.y + catcher.height <= 330 ){
                           	drawObject(catcherTwo , catcher.x , catcher.y , catcher.width , catcher.height) ;
 
                           	 if(blinkCounter > 4){
@@ -198,10 +219,16 @@ var catcher = {
                             }
 
                            
-                            else if(blink ==1 ){
+                            else if(blink ==1 && catcher.y + catcher.height <= 330 ){
                              drawObject(catcherOne , catcher.x , catcher.y , catcher.width , catcher.height) ;
                           	 blink = 0;
                             }
+
+                            else if(catcher.y + catcher.height > 330){
+                            	drawObject(catcherThree, catcher.x , catcher.y , 50 , 20);
+                            }
+
+                           
 
                         }
 
@@ -242,11 +269,28 @@ var catcher = {
                            		}
                            	 }
                            }
+                          
+                          if(catcher.onAir == false){
+                          	for(var i in tileList){
+                          		if(catcherTileCollision(tileList[i])){
+                          			catcher.safe = true ;
+                          			break;
+                          		}
+
+                          		catcher.safe = false;
+                          	}
+
+                          	 // To Drop the catcher
+                         if(catcher.safe == false){
+                         	catcher.y = catcher.y + catcher.gravity;
+                         }
 
 
+                       }
 
-
-                          	
+                        
+                        if(gameOver)
+                          	gameOverMsg();
                           }
 
 
@@ -272,7 +316,7 @@ var catcher = {
                                tileList.push({'x':i*50 , 'y':330});
                            	}
 
-                           	intervalVar = setInterval(updateGame , 50);
+                           	intervalVar = setInterval(updateGame , 40);
 
                          }
                            
