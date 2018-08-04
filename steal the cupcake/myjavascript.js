@@ -96,6 +96,24 @@ var catcher = {
                           	}
 
                           }
+
+                          foodCatcherCollision = function(f){
+                            if(f.x + foodObject.width > catcher.x && f.x < catcher.x + catcher.width && f.y + foodObject.height > catcher.y && f.y < catcher.y + catcher.height){
+                            	return true ;
+                            }
+                          }
+
+                          foodTileCollision = function(f,t){
+                          	 if(f.x + foodObject.width > t.x && f.x < t.x + tileObject.width && f.y + foodObject.height > t.y && f.y < t.y + tileObject.height){
+                            	return true ;
+                            }
+                          }
+
+                          catcherTileCollision = function(t){
+                          	if(catcher.x + catcher.width >= t.x && catcher.x <= t.x + tileObject.width && catcher.y + catcher.height <= t.y ){
+                          		return true ;
+                          	}
+                          }
                           
                           //function to Jump
                           jumpCatcher = function(){
@@ -146,7 +164,7 @@ var catcher = {
                           	for(var i in foodList){
 
                           		if(foodList[i].y >= 500 ){
-                          			foodList.slice(i,1);
+                          			foodList.splice(i,1);
                           		}
 
                           		else{
@@ -203,9 +221,29 @@ var catcher = {
                            	}
 
 
-                          	for(var i = 0 ; i< 10 ; i++){
+                          	for(var i in tileList){
                             	drawObject(tile , tileList[i].x , tileList[i].y , tileObject.width , tileObject.height);
                            	}
+
+                           	//Collisions
+                         
+                          for(var i in foodList){
+
+                           	if(foodCatcherCollision(foodList[i])){
+                           		score++ ;
+                           		foodList.splice(i,1);
+                           	  }
+                           	}
+
+                           for(var i in foodList){
+                           	for(var j in tileList){
+                           		if(foodTileCollision(foodList[i], tileList[j])){
+                           			tileList.splice(j,1);
+                           		}
+                           	 }
+                           }
+
+
 
 
                           	
