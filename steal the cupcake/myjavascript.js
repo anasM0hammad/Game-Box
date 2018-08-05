@@ -8,10 +8,13 @@ var catcherFour = new Image();
 var blood = new Image();
 var food = new Image();
 var tile = new Image();
+var fruit = new Image();
 
 var tileList ;
 var foodList ;
 var foodDrop;
+var fruitDrop ;
+var fruitList ;
 
 var score =0 ;
 var blink = 0;
@@ -20,6 +23,8 @@ var gameOver = false ;
 var foodTimer ;
 var intervalVar ;
 var blinkCounter =0;
+var dropFruit = false ;
+var fruitTimer = 0;
 
 var foodObject = {
    'width' : 40 ,
@@ -57,6 +62,7 @@ var catcher = {
   		  		blood.onload = function(){
   		  			food.onload = function(){
   		  				tile.onload = function(){
+                          fruit.onload = function(){
 
                             // our whole game Code after all images loaded
                           drawObject = function(object , x , y , width , height){
@@ -194,12 +200,25 @@ var catcher = {
                           updateFoodPosition = function(){
                           	for(var i in foodList){
 
-                          		if(foodList[i].y >= 500 ){
+                          		if(foodList[i].y >= 400 ){
                           			foodList.splice(i,1);
                           		}
 
                           		else{
                           			foodList[i].y = foodList[i].y + foodObject.speed ;
+                          		}
+                          	}
+                          }
+
+                          updateFruitPosition = function(){
+                          	for(var i in fruitList){
+
+                          		if(fruitList[i].y >= 400 ){
+                          			fruitList.splice(i,1);
+                          		}
+
+                          		else{
+                          			fruitList[i].y = fruitList[i].y + foodObject.speed ;
                           		}
                           	}
                           }
@@ -245,6 +264,7 @@ var catcher = {
                             //Motion of catcher
                             updateCatcherPosition();
                             updateFoodPosition() ;
+                            updateFruitPosition();
                             jumpCatcher();
 
                             foodTimer++;
@@ -263,6 +283,13 @@ var catcher = {
                            	}
 
                            	//Collisions
+
+                          for(var i in fruitList){
+                          	if(foodCatcherCollision(fruitList[i])){
+                          		score = score + 5 ;
+                          		fruitList.splice(i,1) ;
+                          	}
+                          } 	
                          
                           for(var i in foodList){
 
@@ -299,12 +326,26 @@ var catcher = {
 
                        }
 
-                       showScore();
+                         fruitTimer++ ;
+
+                         if(score%10 == 0 && score >1){
+
+                         	if(fruitTimer > 30){
+                         	  fruitList.push({'x': fruitDrop[Math.round(Math.random()*9)], 'y':0});
+                         	  fruitTimer = 0;
+                            }
+
+                         	for(var i in fruitList){
+                         	drawObject(fruit , fruitList[i].x , fruitList[i].y , 40 , 40 );
+                           }
+                         }
+
+                         showScore();
                     
                         
-                        if(gameOver)
-                          	gameOverMsg();
-                          }
+	                        if(gameOver)
+	                          	gameOverMsg();
+	                          }
 
 
                            startGame = function(){
@@ -320,10 +361,14 @@ var catcher = {
                            	gameOver = false ;
                            	foodTimer = 0;
                            	blinkCounter = 0;
+                           	dropFruit = false ;
+                           	fruitTimer = 0;
 
                            	foodList = [];
                            	tileList = [];
+                           	fruitList = [];
                            	foodDrop = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500] ;
+                           	fruitDrop = [0, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500] ;
 
                            	for(var i=0; i<10 ; i++ ){
                                tileList.push({'x':i*50 , 'y':330});
@@ -339,10 +384,10 @@ var catcher = {
 
 
 
-
-  		  					
+                          }
+  		  				  fruit.src = "fruit.png";	
   		  				}
-  		  				tile.src = "tile.png" ;
+  		  				 tile.src = "tile.png" ;
   		  			}
   		  			
                     food.src = "food.png";
