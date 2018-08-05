@@ -25,6 +25,8 @@ var intervalVar ;
 var blinkCounter =0;
 var dropFruit = false ;
 var fruitTimer = 0;
+var start = false ;
+var isPause = false ;
 
 var foodObject = {
    'width' : 40 ,
@@ -38,7 +40,7 @@ var tileObject = {
 };
 
 var catcher = {
-   'width' : 30,
+   'width' : 25,
    'height' : 50,
    'x':100 ,
    'y':280,
@@ -65,6 +67,23 @@ var catcher = {
                           fruit.onload = function(){
 
                             // our whole game Code after all images loaded
+                          
+                           document.getElementById("restart").onclick = function(){
+                           	if(document.getElementById("restart").innerHTML == "Pause"){
+
+                           		isPause = true ;
+                           		document.getElementById("restart").innerHTML = "Restart";
+                           		document.getElementById("restart").style.backgroundColor = "orange" ;
+                           	}
+
+                           	else{
+                           		isPause = false ;
+                           		document.getElementById("restart").innerHTML = "Pause" ;
+                           		document.getElementById("restart").style.backgroundColor = "#C82333" ;
+                           	}
+                           }
+                          
+
                           drawObject = function(object , x , y , width , height){
                           	ctx.drawImage(object , x , y , width , height) ;
                           }
@@ -103,17 +122,33 @@ var catcher = {
 
                           }
 
+                          startGameMsg = function(){
+                          	ctx.save();
+                          	drawObject(background , 0 , 0 , 500 , 400);
+                          	ctx.globalAlpha = 0.5;
+                          	drawObject(blood ,100 , 80 , 300 , 230 );
+                          	ctx.globalAlpha = 1.0 ;
+                          	ctx.strokeStyle = "white";
+                          	ctx.font = "27px calibri";
+                          	ctx.strokeText("Click Here to start" , 160 , 200 ) ;
+                            start = false;
+                          	ctx.restore();
+                          }
+
                           //Game Over MSG
                           gameOverMsg = function(){
                           	ctx.save();
                           	ctx.globalAlpha = 0.5;
-                          	drawObject(blood ,150 , 100 , 210 , 180 );
+                          	drawObject(blood ,140 , 80 , 240 , 200 );
                           	ctx.globalAlpha = 1.0 ;
                           	ctx.strokeStyle = "white";
                           	ctx.font = "27px calibri";
-                          	ctx.strokeText("Game Over" , 200 , 200 ) ;
+                          	ctx.strokeText("Game Over" , 200 , 170 ) ;
+                          	ctx.font = "20px calibri";
+                          	ctx.strokeText("Click here to restart", 180 , 210);
                             ctx.restore();
-                              
+
+                            start = false ;  
                             clearInterval(intervalVar);  
 
                           }
@@ -224,6 +259,9 @@ var catcher = {
                           }
 
                           updateGame = function(){
+
+                          	if(isPause == false){
+
                           	ctx.clearRect(0 , 0 ,500 , 400) ;
                           	drawObject(background , 0 , 0 , 500 , 400);
 
@@ -286,7 +324,7 @@ var catcher = {
 
                           for(var i in fruitList){
                           	if(foodCatcherCollision(fruitList[i])){
-                          		score = score + 5 ;
+                          		score = score + 3 ;
                           		fruitList.splice(i,1) ;
                           	}
                           } 	
@@ -328,7 +366,7 @@ var catcher = {
 
                          fruitTimer++ ;
 
-                         if(score%10 == 0 && score >1){
+                         if(score%15 == 0 && score >1){
 
                          	if(fruitTimer > 30){
                          	  fruitList.push({'x': fruitDrop[Math.round(Math.random()*9)], 'y':0});
@@ -343,9 +381,28 @@ var catcher = {
                          showScore();
                     
                         
-	                        if(gameOver)
+	                        if(gameOver){
 	                          	gameOverMsg();
 	                          }
+                          }
+
+                          else{
+                          	ctx.clearRect(0 , 0 , 500 , 400);
+                          	drawObject(background, 0 ,0 ,500 ,400);
+                          	ctx.save();
+                         	ctx.globalAlpha = 0.5;
+                          	drawObject(blood , 140 , 80 , 240 , 200 );
+                         	ctx.globalAlpha = 1.0 ;
+                          	ctx.strokeStyle = "white";
+                          	ctx.font = "27px calibri";
+                          	ctx.strokeText("Game is Pause" , 200 , 170 ) ;
+                          	ctx.font = "20px calibri";
+                          	ctx.strokeText("Click restart button", 180 , 210);
+                            ctx.restore();
+                          }
+	                   }
+
+
 
 
                            startGame = function(){
@@ -363,6 +420,9 @@ var catcher = {
                            	blinkCounter = 0;
                            	dropFruit = false ;
                            	fruitTimer = 0;
+                           	start = true;
+                           	isPause =false ;
+
 
                            	foodList = [];
                            	tileList = [];
@@ -377,9 +437,19 @@ var catcher = {
                            	intervalVar = setInterval(updateGame , 40);
 
                          }
+
+                         startGameMsg() ;
+
+                         document.getElementById("ctx").onclick = function(){
+                        
+                            if(start == false){
+                            	startGame();
+                            }
+                            
+                         }
                            
-                    
-                          startGame();
+                     
+                        
 
 
 
