@@ -69,14 +69,14 @@ var catcher = {
                             // our whole game Code after all images loaded
                           
                            document.getElementById("restart").onclick = function(){
-                           	if(document.getElementById("restart").innerHTML == "Pause"){
+                           	if(document.getElementById("restart").innerHTML == "Pause" && start == true){
 
                            		isPause = true ;
                            		document.getElementById("restart").innerHTML = "Restart";
                            		document.getElementById("restart").style.backgroundColor = "orange" ;
                            	}
 
-                           	else{
+                           	else if(start==true && document.getElementById("restart").innerHTML == "Restart"){
                            		isPause = false ;
                            		document.getElementById("restart").innerHTML = "Pause" ;
                            		document.getElementById("restart").style.backgroundColor = "#C82333" ;
