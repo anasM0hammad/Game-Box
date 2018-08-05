@@ -101,11 +101,11 @@ var catcher = {
                           gameOverMsg = function(){
                           	ctx.save();
                           	ctx.globalAlpha = 0.5;
-                          	drawObject(blood ,150 , 100 , 200 , 160 );
+                          	drawObject(blood ,150 , 100 , 210 , 180 );
                           	ctx.globalAlpha = 1.0 ;
                           	ctx.strokeStyle = "white";
-                          	ctx.font = "30px calibri";
-                          	ctx.strokeText("Game Over" , 200 , 180 ) ;
+                          	ctx.font = "27px calibri";
+                          	ctx.strokeText("Game Over" , 200 , 200 ) ;
                             ctx.restore();
                               
                             clearInterval(intervalVar);  
@@ -151,6 +151,16 @@ var catcher = {
                           		catcher.onAir = false ;
                           		catcher.jump = 100 ;
                           	}
+                          }
+
+                          //Function to show the score
+                          showScore = function(){
+                          	ctx.save();
+                          	drawObject(food , 440 , 10 , 20 ,20 ) ;
+                          	ctx.font = "20px calibri";
+                          	ctx.fillStyle = "white";
+                          	ctx.fillText(" : "+score , 460 , 28);
+                          	ctx.restore();
                           }
 
 
@@ -274,6 +284,7 @@ var catcher = {
                           	for(var i in tileList){
                           		if(catcherTileCollision(tileList[i])){
                           			catcher.safe = true ;
+                          		//	console.log("SAFE");
                           			break;
                           		}
 
@@ -288,6 +299,8 @@ var catcher = {
 
                        }
 
+                       showScore();
+                    
                         
                         if(gameOver)
                           	gameOverMsg();
