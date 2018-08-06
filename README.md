@@ -1,7 +1,7 @@
 # Game-Box
 Collection of best classic games simply coded in javascript with some tricks for game development in JS.   
 
-##Games Contain
+## Games Contain
 
 1.**Snake Game** : Classic snake and food game.
 2.**BreakOut Game** : Have to break all the tiles using the moving ball and bar.
