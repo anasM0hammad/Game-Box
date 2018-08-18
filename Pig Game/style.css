@@ -1,0 +1,35 @@
+body{
+    background-image: url(background.jpg) ;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.box{
+    background-color:antiquewhite;
+    margin-top: 100px;
+    height: 100px;
+    text-align: center;
+    font-family: courier New ;
+    padding-top: 10px;
+    
+}
+
+#new:hover{
+    cursor: pointer;
+    
+}
+
+#new:hover .icon{
+    padding-right: 7px;
+    transition: 0.15s;
+}
+
+
+
+
+
+
+
+
+ 
