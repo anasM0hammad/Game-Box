@@ -8,7 +8,6 @@ body{
 .box{
     background-color:antiquewhite;
     margin-top: 100px;
-    height: 100px;
     text-align: center;
     font-family: courier New ;
     padding-top: 10px;
@@ -23,7 +22,33 @@ body{
 #new:hover .icon{
     padding-right: 7px;
     transition: 0.15s;
+    transition-timing-function: ease-in;
+    
 }
+
+.player-0{
+    padding-bottom: 60px;
+}
+
+.player-1{
+    padding-bottom: 60px;
+}
+
+.score-0{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.current-box{
+    background-color: crimson;
+    margin: auto;
+    width: 30%;
+    color: aliceblue;
+    padding: 7px;
+}
+
+
+
 
 
 
