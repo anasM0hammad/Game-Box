@@ -10,7 +10,7 @@ body{
     margin-top: 100px;
     text-align: center;
     font-family: courier New ;
-    padding-top: 10px;
+    padding-top: 30px;
     
 }
 
@@ -45,6 +45,38 @@ body{
     width: 30%;
     color: aliceblue;
     padding: 7px;
+}
+
+.dice-box img{
+    height: 80px;
+    width: 80px;
+    margin-bottom: 60px;
+}
+
+.dice-box{
+    margin-top: 70px;
+}
+
+#rotate{
+    cursor: pointer;
+   
+}
+
+#rotate:hover .r-icon{
+     padding-right: 7px;
+    transition: 0.15s;
+    transition-timing-function: ease-in;
+}
+
+#hold {
+    cursor: pointer;
+   
+}
+
+#hold:hover .h-icon{
+     padding-right: 7px;
+    transition: 0.15s;
+    transition-timing-function: ease-in;
 }
 
 
