@@ -37,6 +37,9 @@
       <li class="nav-item">
         <a class="nav-link" href="..\about.html">About</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" style="cursor: pointer;" data-toggle="modal" data-target="#exampleModal">Rules</a>
+      </li>
   </div>
 </nav>
           
@@ -95,7 +98,38 @@
      
  </div>
           
-</div>          
+</div> 
+          
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">RULES</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <br>
+        <h5>1.This is a Two Player Game</h5>  
+        <h5>2.The player Reach Global score of 100 first will win the Game</h5>
+        <h5>3.You have to Roll the dice and the Number will be added to your current score</h5>
+        <h5>4.If you get a 1 your current score willl become zero and the chance is shift to other player</h5>
+        <h5>5.You can hold your current score by pressing hold to add them in your global score</h5>
+        <h5>6.If you hold your score the chance to roll the dice is shift to other player</h5>
+        <h5>7.Click new game to start a new game</h5>  
+          
+        <br>  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
     
     <script type="text/javascript" src="javascript.js"></script>
           
