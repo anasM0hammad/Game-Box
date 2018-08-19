@@ -23,8 +23,18 @@ document.getElementById("rotate").onclick = function(){
         animation = 0;
         
     }
+    
+    if(dice!==1){
+     roundScore=roundScore+dice;
+     document.querySelector(".current-"+current).textContent = roundScore;
+    }
+    
+    else{
+        roundScore=0;
+        document.querySelector(".current-"+current).textContent = 0 ;
+        current = 1-current ;
+    }
 }
-
 
 
 
@@ -39,6 +49,8 @@ function game() {
     document.querySelector(".score-1").textContent = "0";
     document.querySelector(".current-0").textContent = "0";
     document.querySelector(".current-1").textContent = "0";
+    
+    
 
    
 }
