@@ -32,6 +32,8 @@ document.getElementById("rotate").onclick = function(){
     else{
         roundScore=0;
         document.querySelector(".current-"+current).textContent = 0 ;
+        document.querySelector(".player-0").classList.toggle("active");
+        document.querySelector(".player-1").classList.toggle("active");
         current = 1-current ;
     }
 }

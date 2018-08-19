@@ -84,6 +84,26 @@ body{
     transition-timing-function: ease-in;
 }
 
+.player-0 i{
+    display: none;
+}
+
+.player-1 i{
+    display: none;
+}
+
+.active{
+    font-weight: 900;
+    color: firebrick;
+}
+
+.active i {
+    display: inline;
+    font-size: 17px;
+    
+}
+
+
 
 
 
