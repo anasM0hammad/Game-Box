@@ -39,6 +39,11 @@ body{
     margin-bottom: 40px;
 }
 
+.score-1{
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
 .current-box{
     background-color: crimson;
     margin: auto;

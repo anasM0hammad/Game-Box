@@ -12,6 +12,8 @@
       
     <link rel="stylesheet" type="text/css" href="style.css">
       
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.css">  
+      
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">  
 
     <title>Game Box | Pig Game</title>
@@ -54,7 +56,7 @@
           <h1 class="score-0 display-4">15</h1>
          
           <div class="current-box">
-            <h5>Current score</h5>
+            <h5>SCORE</h5>
             <h3 class="current-0">45</h3>
           </div>
           
@@ -62,7 +64,7 @@
           
      <div class="dice-box col-sm-2">
          
-          <img src="dice-5.JPG" class="rounded mx-auto d-block">
+          <img src="dice-5.JPG" id="dice-img" class="rounded mx-auto d-block shake animated">
          
           <h5 id="rotate"><i class="fas fa-sync-alt r-icon"></i> DICE</h5>
           <h5 id="hold"><i class="fas fa-chevron-down h-icon"></i> HOLD </h5>
@@ -74,11 +76,11 @@
       <div class="player-1 col-sm-5">
          
           <h2>PLAYER 2</h2>
-           <h1 class="score-0 display-4">23</h1>
+           <h1 class="score-1 display-4">23</h1>
          
           <div class="current-box">
-            <h5>Current score</h5>
-            <h3 class="current-0">76</h3>
+            <h5> SCORE</h5>
+            <h3 class="current-1">76</h3>
           </div>
           
       </div>       
@@ -95,7 +97,8 @@
           
 </div>          
     
-
+    <script type="text/javascript" src="javascript.js"></script>
+          
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
