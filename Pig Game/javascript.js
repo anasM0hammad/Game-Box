@@ -39,6 +39,16 @@ document.getElementById("rotate").onclick = function(){
 }
 
 
+document.getElementById("hold").onclick = function(){
+    score[current]= score[current] + roundScore;
+    document.querySelector(".score-"+current).textContent = score[current] ;
+    document.querySelector(".player-0").classList.toggle("active");
+    document.querySelector(".player-1").classList.toggle("active");
+    document.querySelector(".current-"+current).textContent = 0 ;
+    current = 1-current ;
+    roundScore = 0;
+}
+
 
 function game() {
     
