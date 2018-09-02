@@ -121,6 +121,46 @@ var catcher = {
                           	}
 
                           }
+                            
+                         // Phone controls
+                            
+                            var left = document.getElementById("left");
+                            var right = document.getElementById("right");
+                            var up = document.getElementById("up");
+                              
+                              //to move catcher left
+                              left.onmousedown = function(){
+                                catcher.left = true ;
+                          		catcher .right = false ;
+                          		catcher.speed = -20 ;
+                              }
+                              
+                              //to mover catcher right
+                              right.onmousedown = function(){
+                                  catcher.left = false ;
+                                catcher.right = true ;
+                                catcher.speed = 20 ;
+                              }
+                              
+                              //to make catcher jump
+                              up.onmousedown  = function(){
+                                  if(catcher.onAir != true && catcher.y == 280){
+                                      catcher.onAir = true ;
+                          		      catcher.jump = 100 ;
+                                  }
+                              }
+                              
+                              left.onmouseup = function(){
+                                  catcher.left = false ;
+                                catcher.right = false ;
+                              }
+                              
+                              right.onmouseup = function(){
+                                  catcher.left = false ;
+                                catcher.right = false ;
+                              }
+                              
+                              
 
                           startGameMsg = function(){
                           	ctx.save();
