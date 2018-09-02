@@ -85,11 +85,40 @@
                 dir = 1  ;             //up
             }
 
-            else if(event.keyCode == 39 && dir != 0)
+            else if(event.keyCode == 39 && dir != 0 && dir != 99)
                 dir = 2 ;              // right
 
-            else if (event.keyCode == 40 && dir != 1) 
+            else if (event.keyCode == 40 && dir != 1 ) 
                 dir = 3     ;          //down
+        }
+        
+        var left = document.getElementById("left");
+        var up = document.getElementById("up");
+        var down = document.getElementById("down");
+        var right = document.getElementById("right");
+
+        left.onmousedown = function(){
+            if(dir!=2){
+                dir = 0;
+            }
+        }
+        
+         up.onmousedown = function(){
+            if(dir!=3){
+                dir = 1;
+            }
+        }
+         
+          right.onmousedown = function(){
+            if(dir!=0 && dir!=99){
+                dir = 2;
+            }
+        }
+          
+           down.onmousedown = function(){
+            if(dir!=1){
+                dir = 3;
+            }
         }
 
 
