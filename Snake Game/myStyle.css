@@ -1,5 +1,6 @@
   body{
-        background-color: #14bdac;
+        background-image: url(background.jpg);
+        background-size: cover;
       }
 
       canvas{
