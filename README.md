@@ -4,8 +4,12 @@ Collection of best classic games simply coded in javascript with some tricks for
 ## Games
 
 1. **Snake Game** : Classic snake and food game.
+
 2. **BreakOut Game** : Have to break all the tiles using the moving ball and bar.
+
 3. **Steal the Cupcake** : You have catch the cupcake falling from above. You can jump move left and right. This game is beautifully Design with Animations.
+
+4. **Pig Game** : A Two Player Dice Game for Fun.
 
 ## Built With
 
