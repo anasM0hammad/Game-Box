@@ -39,3 +39,8 @@
         color: white;
         font-style: italic;
      }
+
+.phoneBtn i{
+    margin: 10px;
+    color: white;
+}

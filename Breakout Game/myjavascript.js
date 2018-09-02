@@ -60,6 +60,32 @@
  	}
  }
 
+ //Phone controls
+ 
+ var left = document.getElementById("left");
+ var right = document.getElementById("right");
+
+ left.onmousedown = function(){
+     base.left = true ;
+     base.right = false;
+ }
+ 
+ right.onmousedown = function(){
+     base.left = false ;
+     base.right = true;
+ }
+ 
+ 
+ left.onmouseup = function(){
+     base.left = false ;
+    
+ }
+ 
+ right.onmouseup = function(){
+     
+     base.right = false;
+ }
+ 
   drawBase = function(){
   	ctx.save();
   	ctx.fillStyle = base.color ;
